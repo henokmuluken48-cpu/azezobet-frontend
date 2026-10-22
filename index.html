@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Azezobet - Play & Win</title>
     <style>
-        /* --- የ CSS ዲዛይን ክፍል --- */
         :root {
             --bg-color: #0a0b10;
             --card-bg: #1c1f2e;
@@ -15,11 +14,8 @@
             --text-main: #ffffff;
             --text-muted: #888888;
         }
-
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body { background-color: var(--bg-color); color: var(--text-main); padding-bottom: 20px; }
-
-        /* Header */
         header { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; background-color: #11131c; border-bottom: 1px solid #333; }
         .logo { font-size: 24px; font-weight: bold; color: var(--primary); font-style: italic; }
         .user-info { display: flex; align-items: center; gap: 10px; }
@@ -27,54 +23,39 @@
         .btn { padding: 8px 15px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; color: #fff; }
         .btn-deposit { background-color: var(--success); }
         .btn-logout { background-color: var(--danger); }
-
-        /* Navigation Tabs */
         .tabs { display: flex; justify-content: space-around; background-color: var(--card-bg); padding: 10px; margin: 10px; border-radius: 8px; }
         .tab { color: var(--text-muted); cursor: pointer; font-weight: bold; padding: 5px 10px; }
         .tab.active { color: var(--primary); border-bottom: 2px solid var(--primary); }
-
-        /* Grid Layouts */
         .container { padding: 10px; }
         .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 15px; }
-        
         .card { background-color: var(--card-bg); border-radius: 10px; overflow: hidden; text-align: center; cursor: pointer; transition: transform 0.2s; padding: 10px; }
         .card:hover { transform: scale(1.05); }
         .card img { width: 100%; height: 80px; object-fit: cover; border-radius: 8px; }
         .card p { margin-top: 8px; font-size: 12px; font-weight: bold; }
-
-        /* Bet Input Section */
         .bet-section { background-color: var(--card-bg); margin: 10px; padding: 15px; border-radius: 8px; display: flex; align-items: center; gap: 10px; }
         .bet-section input { width: 80px; padding: 8px; border-radius: 5px; border: none; text-align: center; font-weight: bold; font-size: 16px; }
-
-        /* Auth Screen */
         #auth-screen { display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; padding: 20px; }
         .auth-box { background-color: var(--card-bg); padding: 30px; border-radius: 15px; width: 100%; max-width: 400px; }
         .auth-box h2 { text-align: center; margin-bottom: 20px; color: var(--primary); }
         .auth-box input { width: 100%; padding: 12px; margin-bottom: 15px; border-radius: 8px; border: none; font-size: 16px; }
         .auth-box button { width: 100%; padding: 12px; font-size: 18px; background-color: var(--primary); border-radius: 8px; }
         .switch-auth { text-align: center; margin-top: 15px; color: var(--text-muted); cursor: pointer; text-decoration: underline; font-size: 14px; }
-
-        /* Modal */
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); justify-content: center; align-items: center; z-index: 1000; }
         .modal-content { background-color: var(--card-bg); padding: 20px; border-radius: 10px; width: 90%; max-width: 400px; }
         .modal-content h3 { color: var(--primary); text-align: center; margin-bottom: 15px; }
         .telebirr-num { font-size: 22px; font-weight: bold; text-align: center; background: #333; padding: 10px; border-radius: 8px; margin: 10px 0; letter-spacing: 2px;}
         .modal-input { width: 100%; padding: 10px; margin: 5px 0 15px 0; border-radius: 5px; border: none; }
         .modal-actions { display: flex; gap: 10px; }
-        
-        /* Admin Table */
         .admin-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
         .admin-table th, .admin-table td { border: 1px solid #333; padding: 10px; text-align: left; font-size: 14px;}
         .admin-table th { background-color: #333; }
         .admin-table img { width: 60px; height: 60px; object-fit: cover; border-radius: 5px; }
-
         .hidden { display: none !important; }
         .loading { text-align: center; color: var(--primary); margin-top: 50px; }
     </style>
 </head>
 <body>
 
-    <!-- 1. የመግቢያ ገጽ (Auth Screen) -->
     <div id="auth-screen">
         <div class="auth-box">
             <h2 class="logo" style="text-align:center; margin-bottom:20px;">Azezobet</h2>
@@ -85,7 +66,6 @@
         </div>
     </div>
 
-    <!-- 2. ዋናው መተግበሪያ (Main App) -->
     <div id="main-app" class="hidden">
         <header>
             <div class="logo">Azezobet</div>
@@ -108,19 +88,12 @@
         </div>
 
         <div class="container">
-            <!-- Providers View -->
-            <div id="providers-view" class="grid">
-                <!-- JavaScript ይህንን ይሞላል -->
-            </div>
-
-            <!-- Games View (አንድ Provider ሲመረጥ) -->
+            <div id="providers-view" class="grid"></div>
             <div id="games-view" class="hidden">
                 <button class="btn" style="background:#333; margin-bottom: 15px;" onclick="backToProviders()">&lt; ወደ ኋላ ተመለስ</button>
                 <h3 id="selected-provider-name" style="margin-bottom:10px; color:var(--primary);"></h3>
                 <div class="grid" id="games-grid"></div>
             </div>
-
-            <!-- Admin View -->
             <div id="admin-view" class="hidden">
                 <h3 style="color:var(--primary);">የሚጠባበቁ ክፍያዎች (Pending Deposits)</h3>
                 <div style="overflow-x: auto;">
@@ -134,32 +107,25 @@
                                 <th>ተግባር</th>
                             </tr>
                         </thead>
-                        <tbody id="admin-table-body">
-                            <!-- JS ይሞላል -->
-                        </tbody>
+                        <tbody id="admin-table-body"></tbody>
                     </table>
                 </div>
             </div>
-            
-            <!-- Lobby View -->
              <div id="lobby-view" class="hidden">
                 <h3 style="text-align:center; color:var(--text-muted); margin-top:50px;">በቅርቡ ይመጣል...</h3>
             </div>
         </div>
     </div>
 
-    <!-- 3. የክፍያ መስኮት (Deposit Modal) -->
     <div class="modal" id="deposit-modal">
         <div class="modal-content">
             <h3>ገንዘብ ማስገቢያ (Telebirr)</h3>
             <p style="font-size:12px; color:#aaa; margin-bottom:5px;">1. ከታች ወደሚገኘው ቁጥር ገንዘብ ያስተላልፉ (ከ50 - 1000 ብር)፡</p>
             <div class="telebirr-num">0966811102</div>
-            
             <p style="font-size:12px; color:#aaa;">2. የላኩትን መጠን፣ ደረሰኝ ቁጥር እና ስክሪን ሻት ያስገቡ፡</p>
             <input type="number" class="modal-input" id="dep-amount" placeholder="የላኩት ገንዘብ መጠን (ለምሳሌ: 100)">
             <input type="text" class="modal-input" id="dep-txn" placeholder="የደረሰኝ ቁጥር (Txn ID)">
             <input type="file" class="modal-input" id="dep-image" accept="image/*" style="background:transparent; color:white;">
-            
             <div class="modal-actions">
                 <button class="btn" style="background:#555; flex:1;" onclick="closeDepositModal()">ሰርዝ</button>
                 <button class="btn btn-deposit" style="flex:1;" onclick="submitDeposit()">አረጋግጥ</button>
@@ -167,9 +133,8 @@
         </div>
     </div>
 
-    <!-- --- JavaScript ኮድ --- -->
     <script>
-        // 👇 አዲሱ የሰርቨር ሊንክ እዚህ ገብቷል
+        // ትክክለኛው የኋላ ገጽ ሊንክ እዚህ ገብቷል
         const API_URL = "https://azezobet-backend.vercel.app/api"; 
 
         const providersData = [
@@ -193,11 +158,8 @@
         async function handleAuth() {
             const phone = document.getElementById('auth-phone').value.trim();
             const pass = document.getElementById('auth-pass').value.trim();
-
             if (!phone || !pass) return alert("እባክዎ ስልክ ቁጥር እና ፓስወርድ ያስገቡ።");
-
             const endpoint = isLoginMode ? '/auth/login' : '/auth/register';
-            
             try {
                 const response = await fetch(`${API_URL}${endpoint}`, {
                     method: 'POST',
@@ -205,7 +167,6 @@
                     body: JSON.stringify({ phone, password: pass })
                 });
                 const data = await response.json();
-
                 if (data.success) {
                     currentUser = data.user;
                     localStorage.setItem('azezobet_currentUser', JSON.stringify(currentUser));
@@ -213,9 +174,7 @@
                 } else {
                     alert(data.message || "ስህተት ተፈጥሯል");
                 }
-            } catch (error) {
-                alert("ኢንተርኔት ያረጋግጡ");
-            }
+            } catch (error) { alert("ኢንተርኔት ያረጋግጡ"); }
         }
 
         function logout() {
@@ -240,7 +199,6 @@
         function switchTab(tabName) {
             document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
             event.target.classList.add('active');
-
             document.getElementById('providers-view').classList.add('hidden');
             document.getElementById('games-view').classList.add('hidden');
             document.getElementById('admin-view').classList.add('hidden');
@@ -265,12 +223,7 @@
                 const div = document.createElement('div');
                 div.className = 'card';
                 div.onclick = () => openProviderGames(p);
-                div.innerHTML = `
-                    <div style="height:60px; display:flex; align-items:center; justify-content:center; background:#000; border-radius:8px;">
-                        <img src="${p.logo}" style="height:40px; width:auto; max-width:90%; object-fit:contain;" onerror="this.src='https://via.placeholder.com/100x40/333/fff?text=${p.name}'">
-                    </div>
-                    <p>${p.name}</p>
-                `;
+                div.innerHTML = `<div style="height:60px; display:flex; align-items:center; justify-content:center; background:#000; border-radius:8px;"><img src="${p.logo}" style="height:40px; width:auto; max-width:90%; object-fit:contain;" onerror="this.src='https://via.placeholder.com/100x40/333/fff?text=${p.name}'"></div><p>${p.name}</p>`;
                 grid.appendChild(div);
             });
         }
@@ -279,17 +232,13 @@
             document.getElementById('providers-view').classList.add('hidden');
             document.getElementById('games-view').classList.remove('hidden');
             document.getElementById('selected-provider-name').innerText = provider.name + " Games";
-            
             const grid = document.getElementById('games-grid');
             grid.innerHTML = '';
             provider.games.forEach(game => {
                 const div = document.createElement('div');
                 div.className = 'card';
                 div.onclick = () => playGame(game);
-                div.innerHTML = `
-                    <img src="https://via.placeholder.com/150/FF9900/000000?text=${game}" alt="${game}">
-                    <p>${game}</p>
-                `;
+                div.innerHTML = `<img src="https://via.placeholder.com/150/FF9900/000000?text=${game}" alt="${game}"><p>${game}</p>`;
                 grid.appendChild(div);
             });
         }
@@ -301,38 +250,19 @@
 
         async function playGame(gameName) {
             const betAmount = parseFloat(document.getElementById('bet-amount').value);
-            
-            if (isNaN(betAmount) || betAmount < 1 || betAmount > 50) {
-                return alert("ስህተት፡ የውርርድ መጠን ከ 1 እስከ 50 ብር መሆን አለበት።");
-            }
-            if (currentUser.balance < betAmount) {
-                return alert("ስህተት፡ ባላንስዎ አይበቃም። እባክዎ ገንዘብ ያስገቡ።");
-            }
-
+            if (isNaN(betAmount) || betAmount < 1 || betAmount > 50) return alert("ስህተት፡ የውርርድ መጠን ከ 1 እስከ 50 ብር መሆን አለበት።");
+            if (currentUser.balance < betAmount) return alert("ስህተት፡ ባላንስዎ አይበቃም።");
             try {
-                const response = await fetch(`${API_URL}/play`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ userId: currentUser._id, betAmount })
-                });
+                const response = await fetch(`${API_URL}/play`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ userId: currentUser._id, betAmount }) });
                 const data = await response.json();
-
                 if (data.success) {
                     currentUser.balance = data.newBalance;
                     localStorage.setItem('azezobet_currentUser', JSON.stringify(currentUser));
                     updateBalanceUI();
-                    
-                    if (data.isWin) {
-                        alert(`🎉 አሸንፈዋል! በ ${gameName} ላይ ${data.winAmount.toFixed(2)} ብር አግኝተዋል።`);
-                    } else {
-                        alert(`😔 ተሸንፈዋል! በ ${gameName} ላይ ${betAmount} ብር ተቀንሷል።`);
-                    }
-                } else {
-                    alert(data.message);
-                }
-            } catch (error) {
-                alert("ሰርቨር ጋር መገናኘት አልተቻለም");
-            }
+                    if (data.isWin) alert(`🎉 አሸንፈዋል! በ ${gameName} ላይ ${data.winAmount.toFixed(2)} ብር አግኝተዋል።`);
+                    else alert(`😔 ተሸንፈዋል! በ ${gameName} ላይ ${betAmount} ብር ተቀንሷል።`);
+                } else { alert(data.message); }
+            } catch (error) { alert("ሰርቨር ጋር መገናኘት አልተቻለም"); }
         }
 
         function openDepositModal() { document.getElementById('deposit-modal').style.display = 'flex'; }
@@ -342,42 +272,21 @@
             const amount = parseFloat(document.getElementById('dep-amount').value);
             const txn = document.getElementById('dep-txn').value.trim();
             const imageFile = document.getElementById('dep-image').files[0];
-
-            if (!amount || !txn || !imageFile) {
-                return alert("እባክዎ መጠን፣ የደረሰኝ ቁጥር እና ስክሪን ሻት በሙሉ ያስገቡ።");
-            }
-
-            if (amount < 50 || amount > 1000) {
-                return alert("ስህተት፡ ዝቅተኛው የማስገቢያ መጠን 50 ብር እና ከፍተኛው 1000 ብር ነው።");
-            }
-
+            if (!amount || !txn || !imageFile) return alert("እባክዎ ሁሉንም ያስገቡ።");
+            if (amount < 50 || amount > 1000) return alert("ስህተት፡ ዝቅተኛው 50 ከፍተኛው 1000 ብር ነው።");
             const reader = new FileReader();
             reader.onload = async function(e) {
                 const base64Image = e.target.result;
-                
                 try {
-                    const response = await fetch(`${API_URL}/deposit`, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ 
-                            userId: currentUser._id, 
-                            amount: amount, 
-                            transactionId: txn, 
-                            screenshotBase64: base64Image 
-                        })
-                    });
+                    const response = await fetch(`${API_URL}/deposit`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ userId: currentUser._id, amount: amount, transactionId: txn, screenshotBase64: base64Image }) });
                     const data = await response.json();
-                    
-                    alert(data.message || "ክፍያዎ ለግምገማ ተልኳል።");
+                    alert(data.message || "ተልኳል");
                     closeDepositModal();
                     document.getElementById('dep-amount').value = '';
                     document.getElementById('dep-txn').value = '';
                     document.getElementById('dep-image').value = '';
-                    
                     renderAdminTable();
-                } catch (error) {
-                    alert("ክፍያውን መላክ አልተቻለም");
-                }
+                } catch (error) { alert("ክፍያውን መላክ አልተቻለም"); }
             };
             reader.readAsDataURL(imageFile);
         }
@@ -385,65 +294,38 @@
         async function renderAdminTable() {
             const tbody = document.getElementById('admin-table-body');
             tbody.innerHTML = '<tr><td colspan="5" class="loading">በመጫን ላይ...</td></tr>';
-            
             try {
                 const response = await fetch(`${API_URL}/admin/deposits`);
                 const data = await response.json();
-                
                 tbody.innerHTML = '';
                 if (!data.deposits || data.deposits.length === 0) {
-                    tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;">ምንም የሚጠባበቅ ክፍያ የለም።</td></tr>`;
+                    tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;">ምንም የለም።</td></tr>`;
                     return;
                 }
-
                 data.deposits.forEach(txn => {
                     const tr = document.createElement('tr');
-                    tr.innerHTML = `
-                        <td><strong>${txn.userId?.phone || 'Unknown'}</strong></td>
-                        <td style="color:var(--success); font-weight:bold;">${txn.amount} ብር</td>
-                        <td>${txn.transactionId}</td>
-                        <td><img src="${txn.screenshotBase64}" alt="receipt" onclick="window.open(this.src)"></td>
-                        <td><button class="btn btn-deposit" onclick="approveDeposit('${txn._id}')">✓ አጽድቅ</button></td>
-                    `;
+                    tr.innerHTML = `<td><strong>${txn.userId?.phone || 'Unknown'}</strong></td><td style="color:var(--success); font-weight:bold;">${txn.amount} ብር</td><td>${txn.transactionId}</td><td><img src="${txn.screenshotBase64}" onclick="window.open(this.src)"></td><td><button class="btn btn-deposit" onclick="approveDeposit('${txn._id}')">✓ አጽድቅ</button></td>`;
                     tbody.appendChild(tr);
                 });
-            } catch (error) {
-                tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; color:red;">ስህተት ተፈጥሯል</td></tr>';
-            }
+            } catch (error) { tbody.innerHTML = '<tr><td colspan="5" style="color:red;">ስህተት</td></tr>'; }
         }
 
         async function approveDeposit(txnId) {
-            if (!confirm("እርግጠኛ ነዎት? ይህንን ክፍያ ሲያጸድቁ ባላንሱ ለተጠቃሚው ይጨመራል።")) return;
-
+            if (!confirm("እርግጠኛ ነዎት?")) return;
             try {
                 const response = await fetch(`${API_URL}/admin/approve-deposit/${txnId}`, { method: 'POST' });
                 const data = await response.json();
-                
                 alert(data.message);
                 renderAdminTable();
-                
                 if(data.success) {
-                    const freshRes = await fetch(`${API_URL}/auth/login`, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ phone: currentUser.phone, password: prompt("ፓስወርድዎን ያስገቡ") }) 
-                    });
+                    const freshRes = await fetch(`${API_URL}/auth/login`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ phone: currentUser.phone, password: prompt("ፓስወርድዎን ያስገቡ") }) });
                     const freshData = await freshRes.json();
-                    if(freshData.success) {
-                         currentUser.balance = freshData.user.balance;
-                         updateBalanceUI();
-                    }
+                    if(freshData.success) { currentUser.balance = freshData.user.balance; updateBalanceUI(); }
                 }
-            } catch (error) {
-                alert("ስህተት ተፈጥሯል");
-            }
+            } catch (error) { alert("ስህተት"); }
         }
 
-        window.onload = function() {
-            if (currentUser) {
-                showMainApp();
-            }
-        };
+        window.onload = function() { if (currentUser) showMainApp(); };
     </script>
 </body>
 </html>
